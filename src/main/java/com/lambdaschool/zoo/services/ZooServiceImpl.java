@@ -69,32 +69,25 @@ public class ZooServiceImpl implements ZooService {
         }
 
         //One To Many -> ZooAnimal
-//        newZoo.getAnimals().clear();
-//        for (ZooAnimal za : zoo.getAnimals()) {
-//            Animal newAnimal = new Animal();
-//            ZooAnimal newZooAnimal = new ZooAnimal();
-//
-//            newAnimal.setAnimalid(a.getAnimal().getAnimalid());
-//            newAnimal.setAnimaltype(a.getAnimal().getAnimaltype());
-//
-//            newZooAnimal.setAnimal(newAnimal);
-//            newZooAnimal.setIncomingzoo(a.getIncomingzoo());
-//            newZooAnimal.setZoo(newZoo);
-//            newZoo.getAnimals().add(newZooAnimal);
-//        }
         newZoo.getAnimals().clear();
         for (ZooAnimal za : zoo.getAnimals()) {
+            //Check if it is a valid animal
             Animal newAnimal = animalrepos.findById(za.getAnimal().getAnimalid())
-                    .orElseThrow(() -> new EntityNotFoundException("ZooAnimal " + za.getAnimal() + " Not Found"));
+                    .orElseThrow(() -> new EntityNotFoundException("ZooAnimal " + za.getAnimal().getAnimalid() + " Not Found"));
 
-            newZoo.getAnimals().add(new ZooAnimal(newZoo, newAnimal));
+            //Run the animal and zoo through the setters of the newZooAnimal
+            ZooAnimal newZooAnimal = new ZooAnimal();
+            newZooAnimal.setAnimal(newAnimal);
+            newZooAnimal.setIncomingzoo(za.getIncomingzoo());
+            newZooAnimal.setZoo(newZoo);
+
+            //Add the new ZooAnimal to newZoo
+            newZoo.getAnimals().add(newZooAnimal);
         }
-
-
-        System.out.println(newZoo);
         return zoorepos.save(newZoo);
     }
 
+    // DELETE Method
     @Transactional
     @Override
     public void delete(long zooid) {

@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "animals")
-public class Animal extends Auditable{
+public class Animal extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long animalid;
@@ -18,7 +17,7 @@ public class Animal extends Auditable{
     //One To Many -> ZooAnimal
     @OneToMany(mappedBy =  "animal", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "animal", allowSetters = true)
-    private Set<ZooAnimal> zoo = new HashSet<>();
+    private Set<ZooAnimal> zoos = new HashSet<>();
 
 
     //Constructors
@@ -46,11 +45,11 @@ public class Animal extends Auditable{
         this.animaltype = animaltype;
     }
 
-    public Set<ZooAnimal> getZoo() {
-        return zoo;
+    public Set<ZooAnimal> getZoos() {
+        return zoos;
     }
 
-    public void setZoo(Set<ZooAnimal> zoo) {
-        this.zoo = zoo;
+    public void setZoos(Set<ZooAnimal> zoo) {
+        this.zoos = zoo;
     }
 }

@@ -14,13 +14,12 @@ public class ZooAnimalId extends Auditable implements Serializable {
         //default constructor for jpa
     }
 
-    public ZooAnimalId(long zoo, long animal) {
-        this.zoo = zoo;
-        this.animal = animal;
-    }
+//    public ZooAnimalId(long zoo, long animal) {
+//        this.zoo = zoo;
+//        this.animal = animal;
+//    }
 
     //Getters&Setters
-
     public long getZoo() {
         return zoo;
     }
@@ -38,7 +37,7 @@ public class ZooAnimalId extends Auditable implements Serializable {
     }
 
 
-
+    //Equals and Hashcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,6 +49,6 @@ public class ZooAnimalId extends Auditable implements Serializable {
 
     @Override
     public int hashCode() {
-        return 37;
+        return 42;
     }
 }

@@ -13,13 +13,13 @@ public class ZooAnimal extends Auditable implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "zooid")
-    @JsonIgnoreProperties(value = "animal", allowSetters = true)
+    @JsonIgnoreProperties(value = "animals", allowSetters = true)
     private Zoo zoo;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "animalid")
-    @JsonIgnoreProperties(value = "zoo", allowSetters = true)
+    @JsonIgnoreProperties(value = "zoos", allowSetters = true)
     private Animal animal;
 
     private String incomingzoo;
@@ -28,7 +28,6 @@ public class ZooAnimal extends Auditable implements Serializable {
     public ZooAnimal() {
         //jpa constructor
     }
-
 
     public ZooAnimal(String incomingzoo) {
         this.incomingzoo = incomingzoo;
@@ -40,6 +39,8 @@ public class ZooAnimal extends Auditable implements Serializable {
     }
 
 
+
+    //Getters&Setters
     public Zoo getZoo() {
         return zoo;
     }
@@ -64,6 +65,7 @@ public class ZooAnimal extends Auditable implements Serializable {
         this.incomingzoo = incomingzoo;
     }
 
+    //Equals & Hashcode
     @Override
     public boolean equals(Object o) {
         //If this object IS this object, then they are equal, return true
@@ -79,8 +81,8 @@ public class ZooAnimal extends Auditable implements Serializable {
 
         //Compare the two fields on both tables. We have to account for the fields being NULL
         //If null set to 0 and let JPA handle
-        return ((zoo == null) ? 0 : zoo.getZooid()) == ((that.zoo == null) ? 0 : that.zoo.getZooid()) &&
-                ((animal == null) ? 0 : animal.getAnimalid()) == ((that.animal == null) ? 0 : that.animal.getAnimalid());
+        return ((zoo == null) ? 0 : zoo.getZooid()) == ((that.getZoo() == null) ? 0 : that.getZoo().getZooid()) &&
+                ((animal == null) ? 0 : animal.getAnimalid()) == ((that.getAnimal() == null) ? 0 : that.getAnimal().getAnimalid());
     }
 
 
