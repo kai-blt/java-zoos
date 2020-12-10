@@ -15,19 +15,19 @@ public class ZooAnimalId extends Auditable implements Serializable {
     }
 
     //Getters&Setters
-    public long getZooid() {
+    public long getZoo() {
         return zoo;
     }
 
-    public void setZooid(long zoo) {
+    public void setZoo(long zoo) {
         this.zoo = zoo;
     }
 
-    public long getAnimalid() {
+    public long getAnimal() {
         return animal;
     }
 
-    public void setAnimalid(long animal) {
+    public void setAnimal(long animal) {
         this.animal = animal;
     }
 
@@ -36,8 +36,8 @@ public class ZooAnimalId extends Auditable implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ZooAnimalId that = (ZooAnimalId) o;
-        return getZooid() == that.getZooid() &&
-                getAnimalid() == that.getAnimalid();
+        return getZoo() == that.getZoo() &&
+                getAnimal() == that.getAnimal();
     }
 
     @Override

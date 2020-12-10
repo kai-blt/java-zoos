@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "zooanimals")
@@ -30,9 +29,34 @@ public class ZooAnimal extends Auditable implements Serializable {
         //jpa constructor
     }
 
+
     public ZooAnimal(Zoo zoo, Animal animal, String incomingzoo) {
         this.zoo = zoo;
         this.animal = animal;
+        this.incomingzoo = incomingzoo;
+    }
+
+    public Zoo getZoo() {
+        return zoo;
+    }
+
+    public void setZoo(Zoo zoo) {
+        this.zoo = zoo;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
+    public String getIncomingzoo() {
+        return incomingzoo;
+    }
+
+    public void setIncomingzoo(String incomingzoo) {
         this.incomingzoo = incomingzoo;
     }
 
@@ -60,4 +84,5 @@ public class ZooAnimal extends Auditable implements Serializable {
     public int hashCode() {
         return 37;
     }
+
 }

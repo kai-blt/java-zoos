@@ -16,9 +16,15 @@ public class Zoo extends Auditable{
 
     private String zooname;
 
+    //One To Many -> Telephone
+    @OneToMany(mappedBy = "zoo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "zoo", allowSetters = true)
+    private List<Telephone> telephones;
+
+    //One To Many -> ZooAnimal
     @OneToMany(mappedBy =  "zoo", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "zoo", allowSetters = true)
-    private Set<ZooAnimal> animaltype = new HashSet<>();
+    private Set<ZooAnimal> animals = new HashSet<>();
 
 
     //Constructors
@@ -45,5 +51,21 @@ public class Zoo extends Auditable{
 
     public void setZooname(String zooname) {
         this.zooname = zooname;
+    }
+
+    public List<Telephone> getTelephones() {
+        return telephones;
+    }
+
+    public void setTelephones(List<Telephone> telephones) {
+        this.telephones = telephones;
+    }
+
+    public Set<ZooAnimal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(Set<ZooAnimal> animals) {
+        this.animals = animals;
     }
 }
