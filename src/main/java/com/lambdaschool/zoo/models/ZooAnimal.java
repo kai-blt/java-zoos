@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "zooanimals")
+@IdClass(ZooAnimalId.class)
 public class ZooAnimal implements Serializable {
 
     @Id
