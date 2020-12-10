@@ -18,7 +18,7 @@ public class AnimalController {
     @Autowired
     AnimalService animalServices;
 
-    // http://localhost:2019/animals/count
+    // GET http://localhost:2019/animals/count
     @GetMapping(value = "/count", produces = "application/json")
     public ResponseEntity<?> getZooCount() {
         List<AnimalCountZoo> zooCount = animalServices.getZooCount();
