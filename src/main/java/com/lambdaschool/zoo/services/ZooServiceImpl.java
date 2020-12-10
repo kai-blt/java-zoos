@@ -1,8 +1,10 @@
 package com.lambdaschool.zoo.services;
 
+import com.lambdaschool.zoo.models.Animal;
 import com.lambdaschool.zoo.models.Telephone;
 import com.lambdaschool.zoo.models.Zoo;
 import com.lambdaschool.zoo.models.ZooAnimal;
+import com.lambdaschool.zoo.repositories.AnimalRepository;
 import com.lambdaschool.zoo.repositories.ZooRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ import java.util.List;
 public class ZooServiceImpl implements ZooService {
     @Autowired
     private ZooRepository zoorepos;
+
+    @Autowired
+    private AnimalRepository animalrepos;
 
     @Override
     public List<Zoo> getAllZoos() {
@@ -64,15 +69,29 @@ public class ZooServiceImpl implements ZooService {
         }
 
         //One To Many -> ZooAnimal
+//        newZoo.getAnimals().clear();
+//        for (ZooAnimal za : zoo.getAnimals()) {
+//            Animal newAnimal = new Animal();
+//            ZooAnimal newZooAnimal = new ZooAnimal();
+//
+//            newAnimal.setAnimalid(a.getAnimal().getAnimalid());
+//            newAnimal.setAnimaltype(a.getAnimal().getAnimaltype());
+//
+//            newZooAnimal.setAnimal(newAnimal);
+//            newZooAnimal.setIncomingzoo(a.getIncomingzoo());
+//            newZooAnimal.setZoo(newZoo);
+//            newZoo.getAnimals().add(newZooAnimal);
+//        }
         newZoo.getAnimals().clear();
-        for (ZooAnimal a : zoo.getAnimals()) {
-            ZooAnimal newAnimal = new ZooAnimal();
-            newAnimal.setAnimal(a.getAnimal());
-            newAnimal.setIncomingzoo(a.getIncomingzoo());
-            newAnimal.setZoo(newZoo);
-            newZoo.getAnimals().add(newAnimal);
+        for (ZooAnimal za : zoo.getAnimals()) {
+            Animal newAnimal = animalrepos.findById(za.getAnimal().getAnimalid())
+                    .orElseThrow(() -> new EntityNotFoundException("ZooAnimal " + za.getAnimal() + " Not Found"));
+
+            newZoo.getAnimals().add(new ZooAnimal(newZoo, newAnimal));
         }
 
+
+        System.out.println(newZoo);
         return zoorepos.save(newZoo);
     }
 

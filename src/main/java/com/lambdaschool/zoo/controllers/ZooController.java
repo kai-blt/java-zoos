@@ -36,8 +36,7 @@ public class ZooController {
 
     // POST http://localhost:2019/zoos/zoo
     @PostMapping(value = "/zoo", consumes = "application/json")
-    public ResponseEntity<?> addZoo(@Valid @RequestBody Zoo zoo) {
-        Zoo newZoo = new Zoo();
+    public ResponseEntity<?> addZoo(@Valid @RequestBody Zoo newZoo) {
 
         //Set id to 0 so save method knows this is a POST
         newZoo.setZooid(0);
@@ -48,10 +47,19 @@ public class ZooController {
         .path("/{zooid}")
         .buildAndExpand(newZoo.getZooid())
         .toUri();
-        return new ResponseEntity<>(newZooURI, HttpStatus.CREATED);
+        responseHeaders.setLocation(newZooURI);
+        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
     }
 
 
+    // PUT
+    @PutMapping(value = "/zoo/{zooid}", consumes = "application/json")
+    public ResponseEntity<?> replaceZooById(@PathVariable long zooid, @Valid @RequestBody Zoo updateZoo) {
+       //Set id to zooid so save method knows this is a PUT
+        updateZoo.setZooid(zooid);
+        zooService.save(updateZoo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     // DELETE http://localhost:2019/zoos/zoo/{zooid}
     @DeleteMapping(value = "/zoo/{zooid}")

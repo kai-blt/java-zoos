@@ -30,11 +30,15 @@ public class ZooAnimal extends Auditable implements Serializable {
     }
 
 
-    public ZooAnimal(Zoo zoo, Animal animal, String incomingzoo) {
-        this.zoo = zoo;
-        this.animal = animal;
+    public ZooAnimal(String incomingzoo) {
         this.incomingzoo = incomingzoo;
     }
+
+    public ZooAnimal(Zoo zoo, Animal animal) {
+        this.zoo = zoo;
+        this.animal = animal;
+    }
+
 
     public Zoo getZoo() {
         return zoo;
@@ -67,7 +71,7 @@ public class ZooAnimal extends Auditable implements Serializable {
 
         //If this object IS not of the same TYPE as THAT object
         //Then they are NOT equal, return false
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ZooAnimal)) return false;
 
         //If we've reached this point, the object is indeed of the composite type that we know of.
         //Typecast the object to the type we know

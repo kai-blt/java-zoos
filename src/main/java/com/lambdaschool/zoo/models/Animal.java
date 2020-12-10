@@ -25,10 +25,9 @@ public class Animal extends Auditable{
     public Animal() {
     }
 
-//    public Animal(long animalid, String animaltype) {
-//        this.animalid = animalid;
-//        this.animaltype = animaltype;
-//    }
+    public Animal(String animaltype) {
+        this.animaltype = animaltype;
+    }
 
     //Getters&Setters
     public long getAnimalid() {

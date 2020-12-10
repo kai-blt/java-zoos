@@ -25,10 +25,9 @@ public class Telephone extends Auditable{
         //required for jpa
     }
 
-    public Telephone(String phonetype, String phonenumber, Zoo zoo) {
+    public Telephone(String phonetype, String phonenumber) {
         this.phonetype = phonetype;
         this.phonenumber = phonenumber;
-        this.zoo = zoo;
     }
 
     //Getters&Setters
