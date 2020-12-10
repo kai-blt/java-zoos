@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 
 @Embeddable
-public class ZooAnimalId implements Serializable {
-    private long zooid;
-    private long animalid;
+public class ZooAnimalId extends Auditable implements Serializable {
+    private long zoo;
+    private long animal;
 
     //Constructor
     public ZooAnimalId() {
@@ -16,19 +16,19 @@ public class ZooAnimalId implements Serializable {
 
     //Getters&Setters
     public long getZooid() {
-        return zooid;
+        return zoo;
     }
 
-    public void setZooid(long zooid) {
-        this.zooid = zooid;
+    public void setZooid(long zoo) {
+        this.zoo = zoo;
     }
 
     public long getAnimalid() {
-        return animalid;
+        return animal;
     }
 
-    public void setAnimalid(long animalid) {
-        this.animalid = animalid;
+    public void setAnimalid(long animal) {
+        this.animal = animal;
     }
 
     @Override
