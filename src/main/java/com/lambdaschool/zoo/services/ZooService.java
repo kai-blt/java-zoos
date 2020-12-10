@@ -9,5 +9,7 @@ public interface ZooService {
 
     Zoo findById(long zooid);
 
+    Zoo save(Zoo zoo);
+
     void delete(long zooid);
 }
