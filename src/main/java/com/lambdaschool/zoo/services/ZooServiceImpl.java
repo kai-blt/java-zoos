@@ -87,6 +87,59 @@ public class ZooServiceImpl implements ZooService {
         return zoorepos.save(newZoo);
     }
 
+    //PATCH - Update Method
+    @Transactional
+    @Override
+    public Zoo update(Zoo zoo, long id) {
+
+
+        //Check if Zoo exists and has a valid id
+        Zoo updateZoo = zoorepos.findById(zoo.getZooid())
+                    .orElseThrow(() -> new EntityNotFoundException("Zoo " + zoo.getZooid() + " Not Found"));
+
+
+        //validate all single field data for correctness through setters
+        if (updateZoo.getZooname() != null) {
+            updateZoo.setZooname(updateZoo.getZooname());
+        }
+
+
+        //validate all relational data for correctness
+        //One To Many -> Telephone
+        if (updateZoo.getTelephones().size() > 0)
+            updateZoo.getTelephones().clear();
+
+            for (Telephone t : zoo.getTelephones()) {
+                Telephone newTelephone = new Telephone();
+                newTelephone.setPhonenumber(t.getPhonenumber());
+                newTelephone.setPhonetype(t.getPhonetype());
+                newTelephone.setZoo(updateZoo);
+                updateZoo.getTelephones().add(newTelephone);
+        }
+
+        //One To Many -> ZooAnimal
+        if (updateZoo.getAnimals().size() > 0) {
+            updateZoo.getAnimals().clear();
+            for (ZooAnimal za : zoo.getAnimals()) {
+                //Check if it is a valid animal
+                Animal newAnimal = animalrepos.findById(za.getAnimal().getAnimalid())
+                        .orElseThrow(() -> new EntityNotFoundException("ZooAnimal " + za.getAnimal().getAnimalid() + " Not Found"));
+
+                //Run the animal and zoo through the setters of the newZooAnimal
+                ZooAnimal newZooAnimal = new ZooAnimal();
+                newZooAnimal.setAnimal(newAnimal);
+                newZooAnimal.setIncomingzoo(za.getIncomingzoo());
+                newZooAnimal.setZoo(updateZoo);
+
+                //Add the new ZooAnimal to newZoo
+                updateZoo.getAnimals().add(newZooAnimal);
+            }
+        }
+
+        return zoorepos.save(updateZoo);
+    }
+
+
     // DELETE Method
     @Transactional
     @Override

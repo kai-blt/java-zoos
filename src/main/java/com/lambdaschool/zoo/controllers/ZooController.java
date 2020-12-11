@@ -52,14 +52,24 @@ public class ZooController {
     }
 
 
-    // PUT
+    // PUT http://localhost:2019/zoos/zoo/{zooid}
     @PutMapping(value = "/zoo/{zooid}", consumes = "application/json")
-    public ResponseEntity<?> replaceZooById(@PathVariable long zooid, @Valid @RequestBody Zoo updateZoo) {
+    public ResponseEntity<?> replaceZooById(@PathVariable long zooid, @Valid @RequestBody Zoo replaceZoo) {
        //Set id to zooid so save method knows this is a PUT
-        updateZoo.setZooid(zooid);
-        zooService.save(updateZoo);
+        replaceZoo.setZooid(zooid);
+        zooService.save(replaceZoo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    // PATCH http://localhost:2019/zoos/zoo/{zooid}
+    @PatchMapping(value = "/zoo/{zooid}", consumes = "application/json")
+    public ResponseEntity<?> updateZooById(@PathVariable long zooid, @RequestBody Zoo updateZoo) {
+        updateZoo.setZooid(zooid);
+        zooService.update(updateZoo, zooid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     // DELETE http://localhost:2019/zoos/zoo/{zooid}
     @DeleteMapping(value = "/zoo/{zooid}")
