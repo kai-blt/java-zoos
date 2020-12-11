@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 @Embeddable
-public class ZooAnimalId extends Auditable implements Serializable {
+public class ZooAnimalId  implements Serializable {
     private long zoo;
     private long animal;
 
@@ -14,10 +14,10 @@ public class ZooAnimalId extends Auditable implements Serializable {
         //default constructor for jpa
     }
 
-//    public ZooAnimalId(long zoo, long animal) {
-//        this.zoo = zoo;
-//        this.animal = animal;
-//    }
+    public ZooAnimalId(long zoo, long animal) {
+        this.zoo = zoo;
+        this.animal = animal;
+    }
 
     //Getters&Setters
     public long getZoo() {
